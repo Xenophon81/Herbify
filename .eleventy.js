@@ -1,6 +1,16 @@
+const { DateTime } = require("luxon");
+
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/style.css");
   eleventyConfig.addPassthroughCopy("./src/assets");
+
+  // format date in templates
+  eleventyConfig.addFilter("postDate", (dateObj) => {
+    return DateTime.fromJSDate(dateObj).toLocaleString(DateTime.DATE_MED);
+  });
+
+  // Get Year
+  eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
   return {
     dir: {
